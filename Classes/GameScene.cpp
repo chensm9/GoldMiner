@@ -62,6 +62,7 @@ bool GameSence::init()
 
 bool GameSence::onTouchBegan(Touch *touch, Event *unused_event) {
     auto location = touch->getLocation();
+    mouse->stopAction(mouseMove);
 
     auto cheese = Sprite::create("cheese.png");
     cheese->setPosition(location);
@@ -73,8 +74,8 @@ bool GameSence::onTouchBegan(Touch *touch, Event *unused_event) {
     cheese->runAction(Sequence::create(fadeOut, clearUp, nullptr));
 
     auto moveTime = location.getDistance(mouseLayer->convertToWorldSpace(mouse->getPosition())) / 100 * 0.5;
-    auto mouseMoveTo = MoveTo::create(moveTime, mouseLayer->convertToNodeSpace(location));
-    mouse->runAction(mouseMoveTo);
+    mouseMove = MoveTo::create(moveTime, mouseLayer->convertToNodeSpace(location));
+    mouse->runAction(mouseMove);
     return true;
 }
 
@@ -102,6 +103,6 @@ void GameSence::Shoot(Ref* pSender) {
     auto randomPosition = mouseLayer->convertToNodeSpace(
         Vec2(origin.x + random() % (int(visibleSize.width)),
              origin.y + random() % (int(visibleSize.height))));
-    MoveTo* moveTo2 = MoveTo::create(1, randomPosition);
-    mouse->runAction(moveTo2);
+    mouseMove = MoveTo::create(1, randomPosition);
+    mouse->runAction(mouseMove);
 }

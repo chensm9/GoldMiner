@@ -26,4 +26,6 @@ private:
 
 	Layer* stoneLayer;
 
+    MoveTo* mouseMove;
+
 };
