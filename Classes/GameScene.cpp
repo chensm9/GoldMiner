@@ -80,10 +80,10 @@ bool GameSence::onTouchBegan(Touch *touch, Event *unused_event) {
 }
 
 void GameSence::Shoot(Ref* pSender) {
-    /*auto diamond = Sprite::createWithSpriteFrameName("pulled-diamond-0.png");
+    auto diamond = Sprite::createWithSpriteFrameName("pulled-diamond-0.png");
     Animate* diamondAnimate = Animate::create(AnimationCache::getInstance()->getAnimation("diamondAnimation"));
-    diamond->runAction(RepeatForever::create(diamondAnimate));*/
-    auto diamond = Sprite::create("diamond.png");
+    diamond->runAction(RepeatForever::create(diamondAnimate));
+    //auto diamond = Sprite::create("diamond.png");
     diamond->setPosition(mouseLayer->convertToWorldSpace(mouse->getPosition()));
     this->addChild(diamond, 2);
 
@@ -98,6 +98,7 @@ void GameSence::Shoot(Ref* pSender) {
     auto seq = Sequence::create(moveTo, fadeOut, clearUp, nullptr);
     stone2->runAction(seq);
 
+    mouse->stopAction(mouseMove);
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     auto randomPosition = mouseLayer->convertToNodeSpace(
